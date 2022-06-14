@@ -142,6 +142,16 @@ export default Home = ({route }) => {
                   style={[styles.btnContent, {backgroundColor: '#fbbf24'}]}>
                   <Text style={styles.btnFont}>子檔建檔</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('Scanner', {
+                      routeName: 'Scanner',
+                      transitionStyle: 'horizontal',
+                    })
+                  }
+                  style={[styles.btnContent, {backgroundColor: '#fbbf24'}]}>
+                  <Text style={styles.btnFont}>掃描測試</Text>
+                </TouchableOpacity>
               </>
             )}
             <TouchableOpacity

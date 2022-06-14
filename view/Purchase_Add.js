@@ -12,12 +12,15 @@ import {
     ScrollView,
     TouchableOpacity,
     TextInput,
+    
 } from 'react-native';
 import {
     useNavigation
 } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Camera, CameraType } from 'expo-camera';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 
 export default Purchase_Add = ({route}) => {
@@ -33,6 +36,33 @@ export default Purchase_Add = ({route}) => {
     const [productName, setproductName] = useState('');
     const [remark, setremark] = useState('');
     const [inTempProduct, setinTempProduct] = useState(false);
+    const [cameraStatus,setCameraStatus] = useState(false); //相機開啟狀態
+    const [hasPermission, setHasPermission] = useState(null);//相機允許狀態
+    const [scanned, setScanned] = useState(false);//相機掃描狀態
+
+    // 準備相機
+    useEffect(() => {
+      (async () => {
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        setHasPermission(status === 'granted');
+      })();
+    }, []);
+
+    useEffect(()=>{
+      console.log('cameraStatus變',cameraStatus);
+    },[cameraStatus])
+
+    // 相機掃描動作
+    const handleBarCodeScanned = ({ type, data }) => {
+      setScanned(true);
+      alert(`成功掃描國際碼 ${data} `);
+      // setScanData(data)
+      let str = data.toString();
+      setEan(str);
+      setScanned(false);
+      setCameraStatus(false)
+      
+    };
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -101,7 +131,9 @@ export default Purchase_Add = ({route}) => {
                 employeeId: employeeId,
                 billTyle: 0,
             },
-            );
+            ).catch(err=>{
+              console.log('error',err);
+            })
         } else {
             res = await axios.post(
             `${window.httpMethod}://${window.ip}${window.API_FOLDER}productInfo`,
@@ -110,7 +142,9 @@ export default Purchase_Add = ({route}) => {
                 supplierId: supplierId,
                 billTyle: 0,
             },
-            );
+            ).catch(err=>{
+              console.log('error',err);
+            })
         }
         console.log(res.data);
         if (res.data.success) {
@@ -599,7 +633,296 @@ export default Purchase_Add = ({route}) => {
   
   return (
     <>
-    </>
+    {cameraStatus ? (
+      <Text />
+    ) : (
+      <ScrollView
+        contentContainerStyle={{
+          paddingHorizontal: 5,
+          paddingTop: 10,
+          paddingBottom: 50,
+        }}>
+        <View style={styles.FlexContainer}>
+          <TouchableOpacity
+            style={[
+              styles.ScanBtnContainer,
+              inputType ? {} : {backgroundColor: '#3dbf47'},
+            ]}
+            onPress={() => changeInputMethod(false)}>
+            <Text style={styles.ScanBtn}>手動輸入</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.ScanBtnContainer,
+              inputType ? {backgroundColor: '#3dbf47'} : {},
+            ]}
+            onPress={()=>setCameraStatus(true)}
+            // onPress={() => changeInputMethod(true)}
+            >
+            <Text style={styles.ScanBtn}>掃描條碼</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.TextLabel}>國際碼：</Text>
+        <View>
+          <TextInput
+            style={[styles.input, styles.SearchInput]}
+            onChangeText={text => setEan(text)}
+            editable={!inputType}
+            value={ean}
+            keyboardType="number-pad"
+          />
+          {!inputType ? (
+            <TouchableOpacity
+              style={styles.SearchContainer}
+              onPress={() => GetProduct()}>
+              <Text style={[styles.SearchBtn]}>搜尋</Text>
+            </TouchableOpacity>
+          ) : null}
+        </View>
+        <View style={{marginVertical: 10}}>
+          <View
+            style={{
+              padding: 5,
+              borderWidth: 1,
+              borderColor: '#cbcbcb',
+              borderRadius: 5,
+            }}>
+            <Text style={styles.TextLabel}>商品名稱：</Text>
+            <TextInput
+              style={[styles.input, styles.SearchInput, {color: 'red'}]}
+              editable={false}
+              value={productName}
+            />
+          </View>
+
+          <View
+            style={{
+              marginTop: 10,
+              paddingHorizontal: 5,
+              borderWidth: 1,
+              borderColor: '#cbcbcb',
+              borderRadius: 5,
+            }}>
+            <Text style={[styles.TextLabel]}>商品數量：</Text>
+            <View style={{marginBottom: 10}} />
+            {productDetail ? (
+              productDetail.map((item, idx) => {
+                return (
+                  <View style={{paddingVertical: 5}} key={idx}>
+                    <Text style={{fontSize: 16}}>
+                      ({item.unit} * {item.pp}入)：{productName}
+                    </Text>
+                    <TextInput
+                      style={[styles.input, styles.SearchInput]}
+                      onChangeText={text => CalcCount(idx, text)}
+                      keyboardType="number-pad"
+                      value={item.count ? item.count : ''}
+                      placeholder={'數量(' + item.unit + ')'}
+                    />
+                  </View>
+                );
+              })
+            ) : (
+              <Text />
+            )}
+            {AllCount ? (
+              <Text
+                style={{
+                  fontSize: 16,
+                  textAlign: 'center',
+                  paddingVertical: 10,
+                }}>
+                目前總數 {AllCount}
+                {ProductUnit}
+              </Text>
+            ) : (
+              <Text />
+            )}
+          </View>
+
+          <View
+            style={{
+              marginTop: 10,
+              paddingHorizontal: 5,
+              borderWidth: 1,
+              borderColor: '#cbcbcb',
+              borderRadius: 5,
+            }}>
+            <Text style={[styles.TextLabel]}>贈品數量：</Text>
+            <View style={{marginBottom: 10}} />
+            {freebie ? (
+              freebie.map((item, idx) => {
+                return (
+                  <View style={{paddingVertical: 5}} key={idx}>
+                    <Text style={{fontSize: 16}}>
+                      ({item.unit} * {item.pp}入)：{productName}
+                    </Text>
+                    <TextInput
+                      style={[styles.input, styles.SearchInput]}
+                      onChangeText={text => CalcFreebieCount(idx, text)}
+                      keyboardType="number-pad"
+                      value={item.count ? item.count : ''}
+                      placeholder={'數量(' + item.unit + ')'}
+                    />
+                  </View>
+                );
+              })
+            ) : (
+              <Text />
+            )}
+            {AllCount ? (
+              <Text
+                style={{
+                  fontSize: 16,
+                  textAlign: 'center',
+                  paddingVertical: 10,
+                }}>
+                目前總數 {AllFreebieCount}
+                {ProductUnit}
+              </Text>
+            ) : (
+              <Text />
+            )}
+          </View>
+        </View>
+        {ShowRemark ? (
+          <View
+            style={{
+              marginTop: 10,
+              paddingHorizontal: 5,
+              paddingVertical: 10,
+              borderWidth: 1,
+              borderColor: '#cbcbcb',
+              borderRadius: 5,
+            }}>
+            <Text style={[styles.TextLabel]}>備註</Text>
+            <TextInput
+              style={[styles.input, styles.SearchInput]}
+              onChangeText={text => setremark(text)}
+              placeholder={'備註'}
+              value={remark ? remark : ''}
+              multiline
+            />
+          </View>
+        ) : (
+          <Text />
+        )}
+        <View style={{marginTop: 10}}>
+          {!inTempProduct ? (
+            <TouchableOpacity
+              style={[
+                styles.SearchContainer,
+                {
+                  backgroundColor: 'red',
+                  borderRadius: 5,
+                  paddingVertical: 15,
+                },
+              ]}
+              onPress={() => SubmitPurchase()}>
+              <Text style={[styles.SearchBtn]}>送出</Text>
+            </TouchableOpacity>
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <TouchableOpacity
+                style={[
+                  styles.SearchContainer,
+                  {
+                    backgroundColor: '#fbbf24',
+                    borderRadius: 5,
+                    paddingVertical: 15,
+                    width: '49%',
+                  },
+                ]}
+                onPress={() => UpdateProduct()}>
+                <Text style={[styles.SearchBtn, {color: 'black'}]}>編輯</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  styles.SearchContainer,
+                  {
+                    backgroundColor: '#6b7280',
+                    borderRadius: 5,
+                    paddingVertical: 15,
+                    width: '49%',
+                  },
+                ]}
+                onPress={() => RemoveProduct()}>
+                <Text style={[styles.SearchBtn]}>刪除</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </ScrollView>
+    )}
+    
+    
+  
+    {cameraStatus ? (
+      <>
+        <View style={styles.sectionContainer}>
+        <Camera style={styles.camera} 
+              flashMode="torch"
+              type={Camera.Constants.Type.back}
+              barCodeScannerSettings={{
+                barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13],
+              }}
+              onBarCodeScanned={handleBarCodeScanned}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                setType(type === CameraType.back ? CameraType.front : CameraType.back);
+              }}>
+              <Text style={styles.text}> Flip </Text>
+            </TouchableOpacity>
+          </View>
+        </Camera>
+        </View>
+        
+          <TouchableOpacity
+              style={styles.buttonTouchable}
+              onPress={() => setCameraStatus(false)}>
+              <Text style={styles.buttonText}>關閉掃描</Text>
+          </TouchableOpacity>
+        </>
+     
+    ) : (
+      <Text />
+    )}
+
+    {/* 底部連結 */}
+    <View style={{flex: 1}}>
+      <View style={styles.FixTab}>
+        <TouchableOpacity
+          style={styles.FixTabBtnContainer}
+          onPress={() =>
+            navigation.navigate('Home', {
+              routeName: 'Home',
+              transitionStyle: 'horizontal',
+            })
+          }>
+          <Text style={styles.FixTabBtn}>首頁</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.FixTabBtnContainer}
+          onPress={() => {
+            setEan('');
+            navigation.navigate('Purchase_List', {
+              routeName: 'Purchase_List',
+              transitionStyle: 'horizontal',
+            });
+          }}>
+          <Text style={styles.FixTabBtn}>進貨紀錄</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </>
   );
     
 };
@@ -676,7 +999,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     sectionContainer: {
-        marginTop: 32,
+      // marginTop:0,
+      flex: 1,
+      // justifyContent:'center',
+      // backgroundColor: '#fff',
+      // alignItems: 'center',e
+      // justifyContent: 'center',
     },
     buttonTouchable: {
         padding: 16,
@@ -703,5 +1031,8 @@ const styles = StyleSheet.create({
         color: 'white',
         padding: 10,
         borderRadius: 5,
+    },
+    camera: {
+      flex: 1,
     },
 });

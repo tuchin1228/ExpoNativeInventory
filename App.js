@@ -17,6 +17,7 @@ import Inventory_Add from './view/Inventory_Add';
 import Inventory_List from './view/Inventory_List';
 import CreateProduct from './view/CreateProduct';
 import CreatePpProduct from './view/CreatePpProduct';
+import Scanner from './view/Scanner';
 
 function NotificationsScreen({ navigation }) {
   return (
@@ -246,6 +247,23 @@ export default function App() {
           }}
         /> */}
 
+        <Drawer.Screen
+          name="Scanner"
+          component={Scanner}
+          options={{
+            title: '掃描測試',
+            headerStyle: {
+              backgroundColor: '#3dbf47',
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize: 25,
+            },
+            headerTitleAlign: 'center',
+            headerTintColor: '#fff',
+          }}
+        /> 
+      
 
         <Drawer.Screen
           name="Login"
