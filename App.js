@@ -118,7 +118,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        {/*<Drawer.Screen
+      <Drawer.Screen
           name="Return_Add"
           component={Return_Add}
           options={{
@@ -134,7 +134,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        <Drawer.Screen
+          <Drawer.Screen
           name="Return_List"
           component={Return_List}
           options={{
@@ -150,7 +150,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        <Drawer.Screen
+       <Drawer.Screen
           name="Discard_Add"
           component={Discard_Add}
           options={{
@@ -166,7 +166,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        <Drawer.Screen
+         <Drawer.Screen
           name="Discard_List"
           component={Discard_List}
           options={{
@@ -182,7 +182,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        <Drawer.Screen
+       <Drawer.Screen
           name="Inventory_Add"
           component={Inventory_Add}
           options={{
@@ -198,7 +198,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        <Drawer.Screen
+         <Drawer.Screen
           name="Inventory_List"
           component={Inventory_List}
           options={{
@@ -214,7 +214,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        <Drawer.Screen
+        {/*<Drawer.Screen
           name="CreateProduct"
           component={CreateProduct}
           options={{
