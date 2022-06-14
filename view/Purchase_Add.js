@@ -873,15 +873,6 @@ export default Purchase_Add = ({route}) => {
                 barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13],
               }}
               onBarCodeScanned={handleBarCodeScanned}>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                setType(type === CameraType.back ? CameraType.front : CameraType.back);
-              }}>
-              <Text style={styles.text}> Flip </Text>
-            </TouchableOpacity>
-          </View>
         </Camera>
         </View>
         
