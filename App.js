@@ -86,7 +86,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        {/*<Drawer.Screen
+       <Drawer.Screen
           name="Eliminate_Add"
           component={Eliminate_Add}
           options={{
@@ -102,7 +102,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        <Drawer.Screen
+         <Drawer.Screen
           name="Eliminate_List"
           component={Eliminate_List}
           options={{
@@ -118,7 +118,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        <Drawer.Screen
+        {/*<Drawer.Screen
           name="Return_Add"
           component={Return_Add}
           options={{
