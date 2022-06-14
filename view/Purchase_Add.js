@@ -413,7 +413,6 @@ export default Purchase_Add = ({route}) => {
     console.log(res);
 
     if (res.data.success) {
-      handleNotification();
       alert('新增成功');
       setEan('');
       setproductDetail([]);
@@ -867,7 +866,7 @@ export default Purchase_Add = ({route}) => {
       <>
         <View style={styles.sectionContainer}>
         <Camera style={styles.camera} 
-              flashMode="torch"
+              flashMode={cameraStatus ? "torch" : "no"}
               type={Camera.Constants.Type.back}
               barCodeScannerSettings={{
                 barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13],

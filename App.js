@@ -34,7 +34,7 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator
         useLegacyImplementation
-        initialRouteName="Home"
+        initialRouteName="Login"
         backBehavior="history"
         screenOptions={{ headerShown: true }}>
         <Drawer.Screen
@@ -70,7 +70,7 @@ export default function App() {
           }}
         />
 
-        {/* <Drawer.Screen
+         <Drawer.Screen
           name="Purchase_List"
           component={Purchase_List}
           options={{
@@ -86,7 +86,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        <Drawer.Screen
+        {/*<Drawer.Screen
           name="Eliminate_Add"
           component={Eliminate_Add}
           options={{
