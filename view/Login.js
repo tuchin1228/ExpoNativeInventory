@@ -18,8 +18,8 @@ import axios from 'axios';
 export default Login = ({route}) => {
     const navigation = useNavigation();
     const [loginType, setLoginType] = useState(0); //0員工 1廠商
-    const [account, setAccount] = useState('008'); //帳號 廠商統編
-    const [password, setPassword] = useState('123'); //員工密碼
+    const [account, setAccount] = useState(''); //帳號 廠商統編
+    const [password, setPassword] = useState(''); //員工密碼
     // const [ip, setIp] = useState('192.168.0.149');
     const [ip, setIp] = useState('dali-mart.com');
   
@@ -123,7 +123,6 @@ export default Login = ({route}) => {
             style={[styles.input, styles.SearchInput]}
             onChangeText={text => setIp(text)}
             value={ip}
-            keyboardType="number-pad"
           />
           {loginType == 0 ? (
             <Text style={styles.TextLabel}>員工手機</Text>
@@ -161,10 +160,10 @@ export default Login = ({route}) => {
         </View>
   
         <View>
-          <Text>廠商規則:統編 ，測試用:565、40123654</Text>
+          {/* <Text>廠商規則:統編 ，測試用:565、40123654</Text>
           <Text>
             員工規則:手機+密碼 0900000000+123456{'\n'}008+123{'\n'}0987654321+123
-          </Text>
+          </Text> */}
         </View>
       </ScrollView>
     );
