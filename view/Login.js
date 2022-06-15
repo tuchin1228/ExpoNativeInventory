@@ -39,6 +39,8 @@ export default Login = ({route}) => {
   
     const changeLoginMethod = type => {
       setLoginType(type);
+      setAccount('')
+      setPassword('')
     };
   
     const GoIndex = () => {
