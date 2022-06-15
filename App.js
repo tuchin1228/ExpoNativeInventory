@@ -214,7 +214,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-        {/*<Drawer.Screen
+        <Drawer.Screen
           name="CreateProduct"
           component={CreateProduct}
           options={{
@@ -245,9 +245,9 @@ export default function App() {
             headerTitleAlign: 'center',
             headerTintColor: '#fff',
           }}
-        /> */}
+        />
 
-        <Drawer.Screen
+        {/* <Drawer.Screen
           name="Scanner"
           component={Scanner}
           options={{
@@ -262,7 +262,7 @@ export default function App() {
             headerTitleAlign: 'center',
             headerTintColor: '#fff',
           }}
-        /> 
+        />  */}
       
 
         <Drawer.Screen
