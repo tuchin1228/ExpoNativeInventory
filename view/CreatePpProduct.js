@@ -881,6 +881,7 @@ const styles = StyleSheet.create({
     },
     sectionContainer: {
         //marginTop: 32,
+        maxHeight:300,
         flex: 1,
     },
     buttonTouchable: {
