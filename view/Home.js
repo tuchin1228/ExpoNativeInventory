@@ -77,6 +77,16 @@ export default Home = ({route }) => {
               }>
               <Text style={styles.btnFont}>進貨</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                  style={[styles.btnContent, {backgroundColor: '#ff4c4c'}]}
+                  onPress={() =>
+                    navigation.navigate('Return_Add', {
+                      routeName: 'Return_Add',
+                      transitionStyle: 'horizontal',
+                    })
+                  }>
+                  <Text style={styles.btnFont}>退貨</Text>
+                </TouchableOpacity>
             {supplierId ? (
               <Text />
             ) : (
@@ -91,16 +101,7 @@ export default Home = ({route }) => {
                   }>
                   <Text style={styles.btnFont}>銷貨</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.btnContent, {backgroundColor: '#ff4c4c'}]}
-                  onPress={() =>
-                    navigation.navigate('Return_Add', {
-                      routeName: 'Return_Add',
-                      transitionStyle: 'horizontal',
-                    })
-                  }>
-                  <Text style={styles.btnFont}>退貨</Text>
-                </TouchableOpacity>
+                
                 <TouchableOpacity
                   style={[styles.btnContent, {backgroundColor: '#723eb8'}]}
                   onPress={() =>

@@ -360,6 +360,38 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
+         <Drawer.Screen
+          name="Return_Add"
+          component={Return_Add}
+          options={{
+            title: '退貨',
+            headerStyle: {
+              backgroundColor: '#3dbf47',
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize: 25,
+            },
+            headerTitleAlign: 'center',
+            headerTintColor: '#fff',
+          }}
+        />
+          <Drawer.Screen
+          name="Return_List"
+          component={Return_List}
+          options={{
+            title: '退貨紀錄',
+            headerStyle: {
+              backgroundColor: '#3dbf47',
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize: 25,
+            },
+            headerTitleAlign: 'center',
+            headerTintColor: '#fff',
+          }}
+        />
        {/* <Drawer.Screen
           name="Eliminate_Add"
           component={Eliminate_Add}
@@ -392,38 +424,7 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
-      <Drawer.Screen
-          name="Return_Add"
-          component={Return_Add}
-          options={{
-            title: '退貨',
-            headerStyle: {
-              backgroundColor: '#3dbf47',
-            },
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              fontSize: 25,
-            },
-            headerTitleAlign: 'center',
-            headerTintColor: '#fff',
-          }}
-        />
-          <Drawer.Screen
-          name="Return_List"
-          component={Return_List}
-          options={{
-            title: '退貨紀錄',
-            headerStyle: {
-              backgroundColor: '#3dbf47',
-            },
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              fontSize: 25,
-            },
-            headerTitleAlign: 'center',
-            headerTintColor: '#fff',
-          }}
-        />
+     
        <Drawer.Screen
           name="Discard_Add"
           component={Discard_Add}
