@@ -293,7 +293,7 @@ export default function App() {
             headerTintColor: '#fff',
             drawerItemStyle: { display: 'none' },
           }} /> 
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+        <Drawer.Screen name="NotificationsTest" component={NotificationsScreen} />
       </Drawer.Navigator> 
       </NavigationContainer>
     )
@@ -539,7 +539,7 @@ export default function App() {
             headerTintColor: '#fff',
             drawerItemStyle: { display: 'none' },
           }} /> 
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+        <Drawer.Screen name="NotificationsTest" component={NotificationsScreen} />
       </Drawer.Navigator> 
       </NavigationContainer>
     )
