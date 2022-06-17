@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Daliapplication",
+    "name": "大立生鮮超市管理系統",
     "slug": "Daliapplication",
-    "version": "1.0.0",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,13 +19,19 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.daliapp.iosver"
+      "bundleIdentifier": "com.daliapp.iosver",
+      "buildNumber": "1.0.4"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.daliapp.iosver"
     },
     "web": {
       "favicon": "./assets/favicon.png"
