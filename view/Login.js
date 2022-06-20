@@ -92,6 +92,13 @@ export default Login = ({route}) => {
         alert('登入錯誤');
       }
     };
+
+    const GoRegister = () => {
+      navigation.navigate('RegisterTest', {
+        routeName: 'RegisterTest',
+        transitionStyle: 'horizontal',
+      });
+    }
   
     return (
       <ScrollView
@@ -158,6 +165,13 @@ export default Login = ({route}) => {
             ]}
             onPress={() => login()}>
             <Text style={styles.LoginBtn}>登入</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.LoginBtnContainer,{backgroundColor: '#3dbf47'},
+            ]}
+            onPress={() => GoRegister()}>
+            <Text style={styles.LoginBtn}>註冊</Text>
           </TouchableOpacity>
         </View>
   
